@@ -13,6 +13,7 @@ import { Login } from "./paginas/Login";
 import { Inicio } from "./paginas/Inicio";
 import { Listado } from "./paginas/Listado";
 import { PageNotFound } from "./componentes/PageNotFound";
+import { RutaProtegida } from "./componentes/RutaProtegida";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -56,16 +57,34 @@ function App() {
         <div className="container-fluid">
           <Cabecera></Cabecera>
           <Routes>
-            <Route path="/" element={logueado ? <Inicio /> : <Login />}></Route>
+            <Route
+              path="/"
+              element={
+                <RutaProtegida>
+                  <Inicio />
+                </RutaProtegida>
+              }
+            ></Route>
             <Route
               path="/listado"
-              element={logueado ? <Listado /> : <Login />}
+              element={
+                <RutaProtegida>
+                  <Listado />
+                </RutaProtegida>
+              }
             ></Route>
             <Route
               path="/login"
               element={logueado ? <Navigate to="/" replace /> : <Login />}
             ></Route>
-            <Route path="/inicio" element={<Navigate to="/" replace />}></Route>
+            <Route
+              path="/inicio"
+              element={
+                <RutaProtegida>
+                  <Navigate to="/" replace />
+                </RutaProtegida>
+              }
+            ></Route>
             <Route path="*" element={<PageNotFound />}></Route>
           </Routes>
         </div>
